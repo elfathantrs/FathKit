@@ -1,0 +1,18 @@
+{
+  "id": "./",
+  "name": "FathKit - Everyday Tools",
+  "short_name": "FathKit",
+  "description": "Everyday Tools, All in One Place.",
+  "lang": "id",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#111827",
+  "categories": [
+    "productivity",
+    "education",
+    "utilities"
+  ]
+}

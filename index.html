@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <meta name="application-name" content="FathKit">
+
+  <link rel="manifest" href="manifest.json">
+
+  <title>FathKit — Everyday Tools, All in One Place</title>
+
+  <meta
+    name="description"
+    content="FathKit adalah platform tools digital serbaguna untuk pelajar, pekerja, kreator, bisnis, dan semua orang."
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/tools.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .fk-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .fk-header-inner {
+      width: min(1200px, 100%);
+      margin: auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .fk-brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+      flex-shrink: 0;
+    }
+
+    .fk-logo {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: #111827;
+      color: white;
+      font-weight: 800;
+      font-size: 22px;
+    }
+
+    .fk-brand-name {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .fk-brand-tagline {
+      margin: 4px 0 0;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .fk-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .fk-header-button {
+      min-height: 40px;
+      padding: 9px 13px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      background: white;
+      color: #111827;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .fk-header-button:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .fk-hero {
+      padding: 48px 20px 38px;
+      text-align: center;
+      background: #f8fafc;
+    }
+
+    .fk-hero-inner {
+      width: min(850px, 100%);
+      margin: auto;
+    }
+
+    .fk-hero h1 {
+      margin: 0;
+      font-size: clamp(30px, 6vw, 48px);
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+    }
+
+    .fk-hero h1 span {
+      color: #2563eb;
+    }
+
+    .fk-hero p {
+      max-width: 620px;
+      margin: 15px auto 24px;
+      color: #64748b;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .fk-search-wrap {
+      width: min(620px, 100%);
+      margin: auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    #toolSearch {
+      width: 100%;
+      min-height: 52px;
+      padding: 15px 48px 15px 18px;
+      border: 1px solid #dbe1ea;
+      border-radius: 14px;
+      background: white;
+      color: #111827;
+      outline: none;
+      font-size: 15px;
+      box-shadow: 0 5px 20px rgba(15, 23, 42, 0.05);
+    }
+
+    #toolSearch:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+    }
+
+    .fk-search-hint {
+      margin-top: 9px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .fk-main {
+      width: min(1200px, 100%);
+      margin: auto;
+      padding: 30px 20px 60px;
+    }
+
+    .fk-section-heading {
+      margin: 0 0 17px;
+      font-size: 20px;
+    }
+
+    .fk-category-section {
+      margin-bottom: 35px;
+      scroll-margin-top: 90px;
+    }
+
+    #categoryGrid {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    .fk-tools-section {
+      scroll-margin-top: 90px;
+    }
+
+    .fk-tools-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .fk-tools-heading h2 {
+      margin: 0;
+      font-size: 21px;
+    }
+
+    #toolGrid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .fk-empty-state {
+      display: none;
+      padding: 35px 15px;
+      text-align: center;
+      color: #64748b;
+      border: 1px dashed #cbd5e1;
+      border-radius: 14px;
+    }
+
+    .fk-empty-state.show {
+      display: block;
+    }
+
+    .fk-empty-state h3 {
+      margin: 0 0 8px;
+      color: #334155;
+    }
+
+    .fk-empty-state p {
+      margin: 0 0 15px;
+      font-size: 14px;
+    }
+
+    .fk-empty-reset {
+      padding: 9px 14px;
+      border: 0;
+      border-radius: 9px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+
+    .fk-footer {
+      padding: 30px 20px;
+      text-align: center;
+      background: #111827;
+      color: white;
+    }
+
+    .fk-footer strong {
+      font-size: 17px;
+    }
+
+    .fk-footer p {
+      margin: 8px 0;
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+
+    .fk-footer small {
+      color: #94a3b8;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9990;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-panel {
+      width: min(650px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 18px;
+      background: white;
+      color: #111827;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 17px 20px;
+      border-bottom: 1px solid #e5e7eb;
+      background: white;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 19px;
+    }
+
+    .close-button {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 9px;
+      background: #f1f5f9;
+      font-size: 23px;
+      cursor: pointer;
+    }
+
+    #toolContent {
+      padding: 20px;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 100000;
+      left: 50%;
+      bottom: 25px;
+      transform: translate(-50%, 20px);
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: #111827;
+      color: white;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s;
+      max-width: calc(100% - 30px);
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 850px) {
+      #toolGrid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .fk-header-inner {
+        padding: 11px 13px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 11px;
+      }
+
+      .fk-header-actions {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 7px;
+      }
+
+      .fk-brand-name {
+        font-size: 18px;
+      }
+
+      .fk-brand-tagline {
+        font-size: 10px;
+      }
+
+      .fk-logo {
+        width: 39px;
+        height: 39px;
+      }
+
+      .fk-hero {
+        padding: 38px 16px 30px;
+      }
+
+      .fk-main {
+        padding: 25px 15px 45px;
+      }
+
+      .fk-header-button {
+        padding: 9px 10px;
+        min-height: 38px;
+        font-size: 12px;
+      }
+
+      #toolGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px;
+      }
+
+      .fk-tools-heading h2 {
+        font-size: 19px;
+      }
+    }
+
+    @media (max-width: 350px) {
+      #toolGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .fk-header-actions {
+        gap: 5px;
+      }
+
+      .fk-header-button {
+        font-size: 11px;
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="fk-header">
+    <div class="fk-header-inner">
+
+      <div class="fk-brand">
+        <div class="fk-logo">F</div>
+
+        <div>
+          <p class="fk-brand-name">FathKit</p>
+          <p class="fk-brand-tagline">
+            Everyday Tools, All in One Place.
+          </p>
+        </div>
+      </div>
+
+      <nav
+        class="fk-header-actions"
+        aria-label="Navigasi utama"
+      >
+        <button
+          type="button"
+          class="fk-header-button"
+          id="categoryButton"
+        >
+          Kategori
+        </button>
+
+        <button
+          type="button"
+          class="fk-header-button"
+          id="menuButton"
+        >
+          Semua Tools
+        </button>
+
+        <button
+          type="button"
+          class="fk-header-button"
+          id="startButton"
+        >
+          Mulai
+        </button>
+
+        <button
+          type="button"
+          class="fk-header-button"
+          id="fkSearchButton"
+        >
+          Cari Tools
+        </button>
+
+        <div id="fkAuthUserArea"></div>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="fk-hero">
+    <div class="fk-hero-inner">
+
+      <h1>
+        Semua Tools Digital<br>
+        <span>dalam Satu Tempat.</span>
+      </h1>
+
+      <p>
+        Gunakan berbagai alat digital praktis untuk membantu
+        pekerjaan, belajar, kreativitas, dan aktivitas sehari-hari.
+      </p>
+
+      <div class="fk-search-wrap">
+        <input
+          type="search"
+          id="toolSearch"
+          placeholder="Cari tools yang kamu butuhkan..."
+          autocomplete="off"
+          aria-label="Cari tools"
+        >
+      </div>
+
+      <div class="fk-search-hint">
+        Tips: tekan / pada keyboard untuk mencari tools.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="fk-main">
+
+    <section
+      class="fk-category-section"
+      id="categoriesSection"
+    >
+      <h2 class="fk-section-heading">Kategori Tools</h2>
+
+      <div id="categoryGrid">
+        <!-- Kategori dibuat otomatis oleh app.js -->
+      </div>
+    </section>
+
+    <section
+      class="fk-tools-section"
+      id="toolsSection"
+    >
+
+      <div class="fk-tools-heading">
+        <h2>Jelajahi Tools</h2>
+      </div>
+
+      <div id="toolGrid">
+        <!-- Daftar tools dibuat otomatis oleh app.js -->
+      </div>
+
+      <div id="emptyState" class="fk-empty-state">
+        <h3>Tools tidak ditemukan</h3>
+        <p>Coba gunakan kata pencarian atau kategori lain.</p>
+
+        <button
+          type="button"
+          class="fk-empty-reset"
+          id="fkResetSearch"
+        >
+          Tampilkan Semua Tools
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="fk-footer">
+    <strong>eLFathan · FathKit</strong>
+
+    <p>Everyday Tools, All in One Place.</p>
+
+    <small>
+      © 2026 eLFathan. Dibuat untuk memudahkan aktivitas digital.
+    </small>
+  </footer>
+
+  <!-- TOOL MODAL -->
+  <div
+    id="toolModal"
+    class="modal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+
+      <div class="modal-header">
+        <h2 id="modalTitle">Nama alat</h2>
+
+        <button
+          id="closeModal"
+          class="close-button"
+          type="button"
+          aria-label="Tutup"
+        >
+          ×
+        </button>
+      </div>
+
+      <div id="toolContent">
+        <!-- Isi tool dimuat oleh app.js -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LEGACY TOAST -->
+  <div
+    id="toast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+  <!-- ================================== -->
+  <!-- DATA -->
+  <!-- ================================== -->
+
+  <script src="data/categories.js"></script>
+  <script src="data/tools.js"></script>
+
+  <!-- ================================== -->
+  <!-- CORE CONFIGURATION -->
+  <!-- ================================== -->
+
+  <script src="js/config.js"></script>
+  <script src="js/supabase.js"></script>
+
+  <!-- ================================== -->
+  <!-- USER SYSTEM -->
+  <!-- ================================== -->
+
+  <script src="js/auth.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/help.js"></script>
+
+  <!-- ================================== -->
+  <!-- CATALOG AND TOOL DETAILS -->
+  <!-- ================================== -->
+
+  <script src="js/catalog.js"></script>
+  <script src="js/tool-details.js"></script>
+
+  <!-- ================================== -->
+  <!-- SUBSCRIPTION SYSTEM -->
+  <!-- ================================== -->
+
+  <script src="js/plans.js"></script>
+
+  <!-- ================================== -->
+  <!-- MAIN APPLICATION -->
+  <!-- ================================== -->
+
+  <script src="js/app.js"></script>
+
+  <!-- ================================== -->
+  <!-- DIAGNOSTICS AND TESTS -->
+  <!-- ================================== -->
+
+  <script src="js/diagnostics.js"></script>
+  <script src="js/integration-tests.js"></script>
+  <script src="js/launch-readiness.js"></script>
+
+  <!-- ================================== -->
+  <!-- PWA -->
+  <!-- ================================== -->
+
+  <script src="js/pwa.js"></script>
+
+  <!-- ================================== -->
+  <!-- SYSTEM MONITORING -->
+  <!-- ================================== -->
+
+  <script src="js/release-manager.js"></script>
+  <script src="js/performance-monitor.js"></script>
+  <script src="js/backup-restore.js"></script>
+
+  <!-- ================================== -->
+  <!-- NOTIFICATION AND ACTIVITY -->
+  <!-- ================================== -->
+
+  <script src="js/notifications.js"></script>
+  <script src="js/activity-log.js"></script>
+  <script src="js/activity-integrations.js"></script>
+
+  <!-- ================================== -->
+  <!-- USER EXPERIENCE -->
+  <!-- ================================== -->
+
+  <script src="js/user-profile.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/global-search.js"></script>
+  <script src="js/help-center.js"></script>
+  <script src="js/feedback-center.js"></script>
+  <script src="js/security-privacy-center.js"></script>
+  <script src="js/session-device-management.js"></script>
+  <script src="js/data-management-center.js"></script>
+  <script src="js/account-recovery-center.js"></script>
+
+  <!-- ================================== -->
+  <!-- SYSTEM CENTER -->
+  <!-- ================================== -->
+
+  <script src="js/system-center.js"></script>
+
+  <!-- ================================== -->
+  <!-- NAVIGATION BUTTONS -->
+  <!-- ================================== -->
+
+  <script>
+    (() => {
+      "use strict";
+
+      const search =
+        document.getElementById("toolSearch");
+
+      const categoryButton =
+        document.getElementById("categoryButton");
+
+      const menuButton =
+        document.getElementById("menuButton");
+
+      const startButton =
+        document.getElementById("startButton");
+
+      const searchButton =
+        document.getElementById("fkSearchButton");
+
+      const resetButton =
+        document.getElementById("fkResetSearch");
+
+      const categorySection =
+        document.getElementById("categoriesSection");
+
+      const toolsSection =
+        document.getElementById("toolsSection");
+
+      // Pencarian
+      if (searchButton && search) {
+        searchButton.addEventListener("click", () => {
+          if (
+            window.FATHKIT_GLOBAL_SEARCH &&
+            typeof window.FATHKIT_GLOBAL_SEARCH.open === "function"
+          ) {
+            window.FATHKIT_GLOBAL_SEARCH.open();
+          } else {
+            search.focus();
+
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+        });
+      }
+
+      // Kategori
+      if (categoryButton && categorySection) {
+        categoryButton.addEventListener("click", () => {
+          categorySection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        });
+      }
+
+      // Semua tools
+      if (menuButton && toolsSection) {
+        menuButton.addEventListener("click", () => {
+          toolsSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        });
+      }
+
+      // Mulai
+      if (startButton && toolsSection) {
+        startButton.addEventListener("click", () => {
+          toolsSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        });
+      }
+
+      // Reset pencarian dan filter
+      if (resetButton) {
+        resetButton.addEventListener("click", () => {
+          if (
+            window.FATHKIT_GLOBAL_SEARCH &&
+            typeof window.FATHKIT_GLOBAL_SEARCH.reset === "function"
+          ) {
+            window.FATHKIT_GLOBAL_SEARCH.reset();
+          }
+
+          if (
+            window.FATHKIT_APP &&
+            typeof window.FATHKIT_APP.resetFilters === "function"
+          ) {
+            window.FATHKIT_APP.resetFilters();
+          } else if (search) {
+            search.value = "";
+
+            search.dispatchEvent(
+              new Event("input", { bubbles: true })
+            );
+          }
+
+          if (toolsSection) {
+            toolsSection.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+          }
+        });
+      }
+
+      // Shortcut pencarian
+      document.addEventListener("keydown", (event) => {
+        const target = event.target;
+
+        const typing =
+          target &&
+          (
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.isContentEditable
+          );
+
+        if (
+          event.key === "/" &&
+          !typing &&
+          search
+        ) {
+          event.preventDefault();
+
+          if (
+            window.FATHKIT_GLOBAL_SEARCH &&
+            typeof window.FATHKIT_GLOBAL_SEARCH.open === "function"
+          ) {
+            window.FATHKIT_GLOBAL_SEARCH.open();
+          } else {
+            search.focus();
+          }
+        }
+
+        // Escape menutup modal tools
+        if (event.key === "Escape") {
+          const modal =
+            document.getElementById("toolModal");
+
+          if (
+            modal &&
+            modal.classList.contains("show")
+          ) {
+            const closeButton =
+              document.getElementById("closeModal");
+
+            if (closeButton) {
+              closeButton.click();
+            }
+          }
+        }
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
