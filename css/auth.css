@@ -1,0 +1,79 @@
+/* =========================================
+   FATHKIT AUTH DESIGN
+   ========================================= */
+
+#fathkitAuthHost {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#fkAuthUserArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px auto;
+  padding: 0 15px;
+}
+
+#fkAuthUserArea button {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #fff;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#fkAuthUserArea button:hover {
+  background: #f1f5f9;
+}
+
+.fk-auth-overlay {
+  backdrop-filter: blur(5px);
+}
+
+.fk-auth-card {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid #e5e7eb;
+}
+
+.fk-auth-card h2 {
+  font-size: 24px;
+  letter-spacing: -0.5px;
+}
+
+.fk-auth-card input:focus {
+  outline: 2px solid #bfdbfe;
+  border-color: #2563eb;
+}
+
+.fk-auth-primary {
+  transition: background .2s ease;
+}
+
+.fk-auth-primary:hover {
+  background: #2563eb;
+}
+
+.fk-auth-secondary:hover {
+  background: #f8fafc;
+}
+
+@media (max-width: 480px) {
+  .fk-auth-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  #fkAuthUserArea {
+    gap: 6px;
+  }
+
+  #fkAuthUserArea button {
+    padding: 9px 11px;
+    font-size: 12px;
+  }
+}

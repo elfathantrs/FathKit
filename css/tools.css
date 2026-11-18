@@ -1,0 +1,81 @@
+
+.tool-form-field {
+  margin: 15px 0;
+}
+
+.tool-form-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.tool-form-field input,
+.tool-form-field textarea,
+.tool-form-field select {
+  width: 100%;
+  padding: 13px;
+  color: var(--ink);
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  outline: none;
+}
+
+.tool-form-field input:focus,
+.tool-form-field textarea:focus,
+.tool-form-field select:focus {
+  border-color: var(--primary);
+}
+
+.tool-form-field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.tool-checkbox {
+  display: flex !important;
+  align-items: center;
+  gap: 9px;
+}
+
+.tool-checkbox input {
+  width: auto;
+}
+
+.tool-action {
+  width: 100%;
+  margin-top: 10px;
+  padding: 15px;
+  color: white;
+  background: var(--primary);
+  border: 0;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.tool-action:active {
+  background: var(--primary-dark);
+}
+
+.tool-result {
+  min-height: 48px;
+  margin-top: 15px;
+  padding: 15px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  color: var(--ink);
+  background: var(--soft);
+  border-radius: 13px;
+  line-height: 1.6;
+}
+
+.tool-note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.tool-result a {
+  color: var(--primary);
+}
